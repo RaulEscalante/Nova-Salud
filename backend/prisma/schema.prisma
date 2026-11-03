@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum InventoryMovementType {
+  INITIAL
+  PURCHASE
+  SALE
+  ADJUSTMENT
+  RETURN
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(80)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model Product {
+  id            Int     @id @default(autoincrement())
+  sku           String  @unique @db.VarChar(40)
+  name          String  @db.VarChar(160)
+  description   String? @db.Text
+  purchasePrice Decimal @db.Decimal(10, 2)
+  salePrice     Decimal @db.Decimal(10, 2)
+
+  minStock Int @default(10)
+  maxStock Int @default(100)
+
+  active     Boolean @default(true)
+  categoryId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category    Category            @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  inventory   Inventory?
+  batches     Batch[]
+  saleDetails SaleDetail[]
+  movements   InventoryMovement[]
+}
+
+model Inventory {
+  id        Int      @id @default(autoincrement())
+  productId Int      @unique
+  quantity  Int      @default(0)
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+model Batch {
+  id             Int      @id @default(autoincrement())
+  productId      Int
+  batchCode      String   @db.VarChar(80)
+  expirationDate DateTime @db.Date
+  quantity       Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  product   Product             @relation(fields: [productId], references: [id], onDelete: Restrict)
+  movements InventoryMovement[]
+
+  @@unique([productId, batchCode])
+  @@index([expirationDate])
+}
+
+model Sale {
+  id        Int      @id @default(autoincrement())
+  total     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+
+  details   SaleDetail[]
+  movements InventoryMovement[]
+}
+
+model SaleDetail {
+  id        Int     @id @default(autoincrement())
+  saleId    Int
+  productId Int
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  subtotal  Decimal @db.Decimal(10, 2)
+
+  sale    Sale    @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+model InventoryMovement {
+  id        Int                   @id @default(autoincrement())
+  productId Int
+  batchId   Int?
+  saleId    Int?
+  type      InventoryMovementType
+  quantity  Int
+  reason    String?               @db.VarChar(255)
+  createdAt DateTime              @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  batch   Batch?  @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  sale    Sale?   @relation(fields: [saleId], references: [id], onDelete: Restrict)
+
+  @@index([productId, createdAt])
+  @@index([type])
+}
