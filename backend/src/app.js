@@ -8,6 +8,7 @@ import inventoryRoutes from "./routes/inventory.routes.js";
 import batchRoutes from "./routes/batch.routes.js";
 import saleRoutes from "./routes/sale.routes.js";
 import alertRoutes from "./routes/alert.routes.js";
+import purchaseRoutes from "./routes/purchase.routes.js";
 
 import errorMiddleware from "./middlewares/error.middleware.js";
 
@@ -49,6 +50,7 @@ app.use("/api/inventory", inventoryRoutes);
 app.use("/api/batches", batchRoutes);
 app.use("/api/sales", saleRoutes);
 app.use("/api/alerts", alertRoutes);
+app.use("/api/purchases", purchaseRoutes);
 
 app.use(errorMiddleware);
 

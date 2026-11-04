@@ -1,0 +1,134 @@
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.product-form-group label {
+  color: #172B4D;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.product-form-group input,
+.product-form-group select,
+.product-form-group textarea {
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid #DCE3EB;
+  border-radius: 7px;
+  outline: none;
+  color: #172B4D;
+  font-size: 13px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  background: #FFFFFF;
+}
+
+.product-form-group input,
+.product-form-group select {
+  height: 43px;
+}
+
+.product-form-group textarea {
+  padding: 11px 12px;
+  resize: vertical;
+  min-height: 75px;
+}
+
+.product-form-group input:focus,
+.product-form-group select:focus,
+.product-form-group textarea:focus {
+  border-color: #1769AA;
+}
+
+.product-form-group input::placeholder,
+.product-form-group textarea::placeholder {
+  color: #A0AAB8;
+}
+
+.product-form-hint {
+  font-size: 11px;
+  color: #8492A6;
+  line-height: 1.5;
+}
+
+.product-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.product-form-error {
+  padding: 11px 12px;
+  border-radius: 7px;
+  background: #FDEDEC;
+  color: #D94B45;
+  font-size: 12px;
+}
+
+.product-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.product-form-actions button {
+  height: 39px;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.product-form-cancel {
+  border: 1px solid #DCE3EB;
+  background: #FFFFFF;
+  color: #64748B;
+}
+
+.product-form-cancel:hover:not(:disabled) {
+  background: #F5F7FA;
+}
+
+.product-form-save {
+  border: none;
+  background: #1769AA;
+  color: #FFFFFF;
+}
+
+.product-form-save:hover:not(:disabled) {
+  background: #12558C;
+}
+
+@media (max-width: 480px) {
+  .product-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .product-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .product-form-actions button {
+    width: 100%;
+  }
+}

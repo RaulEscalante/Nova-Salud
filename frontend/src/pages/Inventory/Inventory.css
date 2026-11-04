@@ -1,0 +1,188 @@
+
+.inventory-page {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* Barra de herramientas */
+
+.inventory-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.inventory-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 0 14px;
+    width: 360px;
+    height: 42px;
+    color: #8492A6;
+}
+
+.inventory-search input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    color: #172B4D;
+}
+
+.inventory-search input::placeholder {
+    color: #A0AAB8;
+}
+
+/* Filtros */
+
+.inventory-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.inventory-filters > div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #64748B;
+    font-size: 12px;
+}
+
+.inventory-filters select {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+    background: #FFFFFF;
+    color: #475569;
+    font-size: 12px;
+    outline: none;
+}
+
+/* Producto */
+
+.inventory-product {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.inventory-product-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #EAF3FC;
+    color: #1769AA;
+}
+
+.inventory-product div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inventory-product strong {
+    color: #172B4D;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.inventory-product div span {
+    color: #8492A6;
+    font-size: 11px;
+}
+
+.inventory-category {
+    color: #64748B;
+    font-size: 12px;
+}
+
+/* Cantidad */
+
+.inventory-quantity {
+    color: #172B4D;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Estado */
+
+.inventory-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.inventory-status.normal {
+    background: #E8F7EF;
+    color: #269B61;
+}
+
+.inventory-status.critical {
+    background: #FFF4E5;
+    color: #D99127;
+}
+
+.inventory-status.out {
+    background: #FDEDEC;
+    color: #D94B45;
+}
+
+.inventory-status.overstock {
+    background: #EAF3FC;
+    color: #1769AA;
+}
+
+.inventory-status.unknown {
+    background: #F1F3F5;
+    color: #8492A6;
+}
+
+/* Mensajes */
+
+.inventory-error {
+    color: #D94B45;
+}
+
+.inventory-error button {
+    display: block;
+    margin: 12px auto 0;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1769AA;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+/* Adaptación */
+
+@media (max-width: 768px) {
+    .inventory-search {
+        width: 100%;
+    }
+
+    .inventory-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .inventory-filters select {
+        width: 100%;
+    }
+}

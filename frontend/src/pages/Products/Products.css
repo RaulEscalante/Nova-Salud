@@ -1,0 +1,269 @@
+.products-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Barra de herramientas */
+
+.products-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.products-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0 14px;
+  width: 360px;
+  height: 42px;
+  color: #8492A6;
+}
+
+.products-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #172B4D;
+}
+
+.products-search input::placeholder {
+  color: #A0AAB8;
+}
+
+.products-add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  background: #1769AA;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.products-add-button:hover {
+  background: #12558C;
+}
+
+/* Filtros */
+
+.products-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.products-filters>div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #64748B;
+  font-size: 12px;
+}
+
+.products-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.products-filters select {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #E2E8F0;
+  border-radius: 7px;
+  background: #FFFFFF;
+  color: #475569;
+  font-size: 12px;
+  outline: none;
+}
+
+/* Código SKU */
+
+.product-sku {
+  color: #64748B;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Nombre del producto */
+
+.product-name {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #172B4D;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.product-name svg {
+  flex-shrink: 0;
+  color: #1769AA;
+}
+
+/* Stock */
+
+.product-stock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.product-stock-quantity {
+  color: #172B4D;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.product-stock-status {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.product-stock-status.normal {
+  background: #E8F7EF;
+  color: #269B61;
+}
+
+.product-stock-status.critical {
+  background: #FFF4E5;
+  color: #D99127;
+}
+
+.product-stock-status.out {
+  background: #FDEDEC;
+  color: #D94B45;
+}
+
+.product-stock-status.overstock {
+  background: #EAF3FC;
+  color: #1769AA;
+}
+
+/* Estado del producto */
+
+.product-status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.product-status.active {
+  background: #E8F7EF;
+  color: #269B61;
+}
+
+.product-status.inactive {
+  background: #F1F3F5;
+  color: #8492A6;
+}
+
+/* Acciones */
+
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-action {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.product-action.edit {
+  color: #1769AA;
+}
+
+.product-action.edit:hover:not(:disabled) {
+  background: #EAF3FC;
+}
+
+.product-action.status {
+  color: #64748B;
+}
+
+.product-action.status:hover:not(:disabled) {
+  background: #F1F3F5;
+}
+
+/* Mensajes */
+
+.products-error {
+  color: #D94B45;
+}
+
+.products-error button {
+  display: block;
+  margin: 12px auto 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #1769AA;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 768px) {
+  .products-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .products-search {
+    width: 100%;
+  }
+
+  .products-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .products-filter-controls {
+    flex-wrap: wrap;
+  }
+
+  .products-filters select {
+    flex: 1;
+    min-width: 140px;
+  }
+}

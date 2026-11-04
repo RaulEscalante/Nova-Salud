@@ -1,0 +1,167 @@
+
+/* Contenedor general */
+
+.data-table-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border: 1px solid #E8EDF3;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Área con scroll */
+
+.data-table-container {
+    width: 100%;
+    overflow: auto;
+}
+
+/* Tabla */
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Encabezados */
+
+.data-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 16px 20px;
+    background: #F8FAFC;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+    border-bottom: 1px solid #E8EDF3;
+}
+
+/* Celdas */
+
+.data-table td {
+    padding: 16px 20px;
+    background: #FFFFFF;
+    color: #64748B;
+    font-size: 12px;
+    border-bottom: 1px solid #F0F2F5;
+}
+
+/* Última fila */
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Efecto hover */
+
+.data-table tbody tr:hover td {
+    background: #FAFCFE;
+}
+
+/* Mensajes */
+
+.data-table-message {
+    padding: 45px 20px;
+    text-align: center;
+    color: #8492A6;
+    font-size: 13px;
+    background: #FFFFFF;
+    border: 1px solid #E8EDF3;
+    border-radius: 10px;
+}
+
+/* Paginación */
+
+.data-table-pagination {
+    min-height: 65px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    background: #FFFFFF;
+    border-top: 1px solid #E8EDF3;
+}
+
+/* Información de registros */
+
+.data-table-pagination-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #8492A6;
+    font-size: 12px;
+}
+
+.data-table-pagination-info select {
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #475569;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Controles de paginación */
+
+.data-table-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #64748B;
+    font-size: 12px;
+}
+
+.data-table-pagination-controls button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #475569;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.data-table-pagination-controls button:hover:not(:disabled) {
+    background: #EAF3FC;
+    color: #1769AA;
+    border-color: #C7DDF2;
+}
+
+.data-table-pagination-controls button:disabled {
+    color: #C0C8D2;
+    background: #F8FAFC;
+    cursor: not-allowed;
+}
+
+/* Adaptación para pantallas pequeñas */
+
+@media (max-width: 768px) {
+    .data-table-pagination {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .data-table-pagination-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .data-table-pagination-controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

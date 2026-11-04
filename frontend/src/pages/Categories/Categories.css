@@ -1,0 +1,184 @@
+
+.categories-page {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* Barra de herramientas */
+
+.categories-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.categories-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 0 14px;
+    width: 320px;
+    height: 42px;
+    color: #8492A6;
+}
+
+.categories-search input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    color: #172B4D;
+}
+
+.categories-search input::placeholder {
+    color: #A0AAB8;
+}
+
+.categories-add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    background: #1769AA;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.categories-add-button:hover {
+    background: #12558C;
+}
+
+/* Filtros */
+
+.categories-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categories-filters > div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #64748B;
+    font-size: 12px;
+}
+
+.categories-filters select {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+    background: #FFFFFF;
+    color: #475569;
+    font-size: 12px;
+    outline: none;
+}
+
+/* Nombre */
+.category-name {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #172B4D;
+}
+
+.category-name strong {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.category-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #EAF3FC;
+    color: #1769AA;
+}
+
+/* Estado */
+
+.category-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.category-status.active {
+    background: #E8F7EF;
+    color: #269B61;
+}
+
+.category-status.inactive {
+    background: #F1F3F5;
+    color: #8492A6;
+}
+
+/* Acciones */
+.category-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-action {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.category-action.edit {
+    color: #1769AA;
+}
+
+.category-action.edit:hover {
+    background: #EAF3FC;
+}
+
+.category-action.status {
+    color: #64748B;
+}
+
+.category-action.status:hover {
+    background: #F1F3F5;
+}
+
+/* Mensajes */
+.categories-error {
+    color: #D94B45;
+}
+
+.categories-error button {
+    display: block;
+    margin: 12px auto 0;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1769AA;
+    color: #FFFFFF;
+    cursor: pointer;
+}

@@ -47,6 +47,7 @@ model Product {
   batches     Batch[]
   saleDetails SaleDetail[]
   movements   InventoryMovement[]
+  purchaseDetails PurchaseDetail[]
 }
 
 model Inventory {
@@ -68,6 +69,7 @@ model Batch {
 
   product   Product             @relation(fields: [productId], references: [id], onDelete: Restrict)
   movements InventoryMovement[]
+  purchaseDetails PurchaseDetail[]
 
   @@unique([productId, batchCode])
   @@index([expirationDate])
@@ -95,19 +97,46 @@ model SaleDetail {
 }
 
 model InventoryMovement {
-  id        Int                   @id @default(autoincrement())
-  productId Int
-  batchId   Int?
-  saleId    Int?
-  type      InventoryMovementType
-  quantity  Int
-  reason    String?               @db.VarChar(255)
-  createdAt DateTime              @default(now())
+  id         Int                   @id @default(autoincrement())
+  productId  Int
+  batchId    Int?
+  saleId     Int?
+  purchaseId Int?
+  type       InventoryMovementType
+  quantity   Int
+  reason     String?               @db.VarChar(255)
+  createdAt  DateTime              @default(now())
 
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
-  batch   Batch?  @relation(fields: [batchId], references: [id], onDelete: Restrict)
-  sale    Sale?   @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  batch    Batch?   @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  sale     Sale?    @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  purchase Purchase? @relation(fields: [purchaseId], references: [id], onDelete: Restrict)
 
   @@index([productId, createdAt])
   @@index([type])
+  @@index([purchaseId])
+}
+
+model Purchase {
+  id           Int      @id @default(autoincrement())
+  supplierName String?  @db.VarChar(160)
+  total        Decimal  @db.Decimal(10, 2)
+  createdAt    DateTime @default(now())
+
+  details   PurchaseDetail[]
+  movements InventoryMovement[]
+}
+
+model PurchaseDetail {
+  id         Int     @id @default(autoincrement())
+  purchaseId Int
+  productId  Int
+  batchId    Int
+  quantity   Int
+  unitPrice  Decimal @db.Decimal(10, 2)
+  subtotal   Decimal @db.Decimal(10, 2)
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Restrict)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  batch    Batch    @relation(fields: [batchId], references: [id], onDelete: Restrict)
 }
