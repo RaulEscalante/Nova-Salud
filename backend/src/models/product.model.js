@@ -1,18 +1,29 @@
 
 import prisma from "../config/prisma.js";
 
+
 // Obtener todos los productos
 export const findAll = async () => {
     return await prisma.product.findMany({
         include: {
             category: true,
-            inventory: true
+            inventory: true,
+            batches: {
+                where: {
+                    quantity: { gt: 0 }
+                },
+                select: {
+                    quantity: true,
+                    expirationDate: true
+                }
+            }
         },
         orderBy: {
             name: "asc"
         }
     });
 };
+
 
 // Buscar producto por ID
 export const findById = async (id) => {
