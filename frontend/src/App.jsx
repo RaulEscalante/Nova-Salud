@@ -8,10 +8,10 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Categories from "./pages/Categories/Categories";
 import Products from "./pages/Products/Products";
 import Inventory from "./pages/Inventory/Inventory";
-
-const Batches = () => <div>Contenido de Lotes</div>;
-const Alerts = () => <div>Contenido de Alertas</div>;
-const Sales = () => <div>Contenido de Ventas</div>;
+import Purchases from "./pages/Purchases/Purchases";
+import Batches from "./pages/Batches/Batches";
+import Alerts from "./pages/Alerts/Alerts";
+import Sales from "./pages/Sales/Sales";
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
             <Route path="/lotes" element={<Batches />} />
             <Route path="/alertas" element={<Alerts />} />
             <Route path="/ventas" element={<Sales />} />
+            <Route path="/compras" element={<Purchases />} />
           </Route>
         </Routes>
       </ToastProvider>

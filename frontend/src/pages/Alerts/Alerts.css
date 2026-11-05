@@ -1,0 +1,275 @@
+
+.alerts-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Tarjetas de resumen */
+
+.alerts-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.alert-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 18px 15px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.alert-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+.alert-summary-icon.total {
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.alert-summary-icon.stock {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.alert-summary-icon.critical {
+  color: #d97706;
+  background: #fffbeb;
+}
+
+.alert-summary-icon.expired {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.alert-summary-icon.expiring {
+  color: #ca8a04;
+  background: #fefce8;
+}
+
+.alert-summary-card div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.alert-summary-card span {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.alert-summary-card strong {
+  color: #1e293b;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Buscador y filtros */
+
+.alerts-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.alerts-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 430px;
+  padding: 0 13px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #94a3b8;
+}
+
+.alerts-search:focus-within {
+  border-color: #3b82f6;
+}
+
+.alerts-search input {
+  width: 100%;
+  height: 42px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #334155;
+  font-size: 13px;
+}
+
+.alerts-search input::placeholder {
+  color: #94a3b8;
+}
+
+.alerts-filter {
+  min-width: 180px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Información del producto */
+
+.alert-product-cell,
+.alert-detail-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alert-product-cell strong,
+.alert-detail-cell strong {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.alert-product-cell span,
+.alert-detail-cell span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* Tipo de alerta */
+
+.alert-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.alert-type.stock {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.alert-type.vencimiento {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+/* Estado de alerta */
+
+.alert-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.alert-status.agotado {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.alert-status.critico {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.alert-status.vencido {
+  color: #991b1b;
+  background: #fecaca;
+}
+
+.alert-status.por-vencer {
+  color: #a16207;
+  background: #fef9c3;
+}
+
+/* Mensaje de alerta */
+
+.alert-message {
+  display: block;
+  max-width: 300px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Mensajes generales */
+
+.alerts-error {
+  padding: 12px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.alerts-count {
+  margin-top: -12px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* Diseño adaptable */
+
+@media (max-width: 1200px) {
+  .alerts-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .alerts-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .alerts-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .alerts-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .alerts-search {
+    max-width: none;
+  }
+
+  .alerts-filter {
+    width: 100%;
+  }
+
+  .alerts-header h1 {
+    font-size: 21px;
+  }
+}

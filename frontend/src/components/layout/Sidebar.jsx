@@ -13,6 +13,7 @@ import {
 
 import "./Sidebar.css";
 
+
 const menuItems = [
   {
     title: "PRINCIPAL",
@@ -25,18 +26,28 @@ const menuItems = [
     ]
   },
   {
-    title: "GESTIÓN",
+    title: "GESTIÓN DE PRODUCTOS",
     items: [
+      {
+        name: "Productos",
+        path: "/productos",
+        icon: Package
+      },
       {
         name: "Categorías",
         path: "/categorias",
         icon: Tags
       },
       {
-        name: "Productos",
-        path: "/productos",
-        icon: Package
-      },
+        name: "Compras a proveedores",
+        path: "/compras",
+        icon: ShoppingCart
+      }
+    ]
+  },
+  {
+    title: "CONTROL DE INVENTARIO",
+    items: [
       {
         name: "Inventario",
         path: "/inventario",
@@ -55,16 +66,22 @@ const menuItems = [
     ]
   },
   {
-    title: "OPERACIONES",
+    title: "VENTAS",
     items: [
       {
-        name: "Ventas",
+        name: "Registrar venta",
         path: "/ventas",
         icon: ShoppingCart
+      },
+      {
+        name: "Historial de ventas",
+        path: "/ventas/historial",
+        icon: CalendarClock
       }
     ]
   }
 ];
+
 
 const Sidebar = () => {
   return (

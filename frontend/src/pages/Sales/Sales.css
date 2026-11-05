@@ -1,0 +1,18 @@
+.sales-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sales-page-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: 20px;
+}
+
+@media (max-width: 1000px) {
+  .sales-page-content {
+    grid-template-columns: 1fr;
+  }
+}

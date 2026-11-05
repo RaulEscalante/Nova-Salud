@@ -2,11 +2,11 @@
 import { X } from "lucide-react";
 import "./Modal.css";
 
-const Modal = ({ title, onClose, children }) => {
+const Modal = ({ title, onClose, children, className = "" }) => {
   return (
     <div className="modal-overlay" onMouseDown={onClose}>
       <div
-        className="modal-container"
+        className={`modal-container ${className}`}
         onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="modal-header">

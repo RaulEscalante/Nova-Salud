@@ -1,0 +1,151 @@
+
+/* Página de compras */
+
+.purchases-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Encabezado */
+
+.purchases-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.purchases-header h1 {
+  margin: 0 0 6px;
+  color: #172B4D;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.purchases-header p {
+  margin: 0;
+  color: #64748B;
+  font-size: 13px;
+}
+
+/* Botón de nueva compra */
+
+.purchases-create-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  background: #1769AA;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.purchases-create-button:hover {
+  background: #12558C;
+}
+
+/* Barra de herramientas */
+
+.purchases-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.purchases-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0 14px;
+  width: 360px;
+  height: 42px;
+  color: #8492A6;
+}
+
+.purchases-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #172B4D;
+}
+
+.purchases-search input::placeholder {
+  color: #A0AAB8;
+}
+
+.purchases-count {
+  color: #64748B;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Acciones */
+
+.purchase-action-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #1769AA;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.purchase-action-button:hover {
+  background: #EAF3FC;
+}
+
+/* Mensajes */
+
+.purchases-error {
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: #FDEDEC;
+  color: #D94B45;
+  font-size: 13px;
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 768px) {
+  .purchases-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .purchases-create-button {
+    width: 100%;
+  }
+
+  .purchases-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .purchases-search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .purchases-count {
+    text-align: right;
+  }
+}

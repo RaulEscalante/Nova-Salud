@@ -1,0 +1,98 @@
+
+.sales-history {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 24px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.sales-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.sales-history-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1e293b;
+}
+
+.sales-history-title svg {
+    color: #2563eb;
+}
+
+.sales-history-title h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.sales-history-count {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.sale-detail-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.sale-detail-button:hover {
+    background: #dbeafe;
+}
+
+.sales-history-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.sales-history-error {
+    color: #dc2626;
+    background: #fef2f2;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.loading-spinner {
+    animation: sales-spin 1s linear infinite;
+}
+
+@keyframes sales-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 640px) {
+    .sales-history {
+        padding: 16px;
+    }
+
+    .sales-history-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
