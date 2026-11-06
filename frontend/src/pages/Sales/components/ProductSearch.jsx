@@ -4,55 +4,84 @@ import {
   Search,
   Plus,
   Package,
-  LoaderCircle
+  LoaderCircle,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { getProducts } from "../../../services/productService";
 import "./ProductSearch.css";
 
-const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
+const PAGE_SIZE = 10;
+
+const ProductSearch = ({ onAddProduct, cartItems = [], refreshKey = 0 }) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [order, setOrder] = useState("asc");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    pagina: 1,
+    limite: PAGE_SIZE,
+    total: 0,
+    totalPaginas: 0
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        setLoading(true);
-        setError("");
-
-        const response = await getProducts();
-        setProducts(response.productos || []);
-      } catch (err) {
-        setError(err.message || "No se pudieron cargar los productos.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
-  }, []);
-
-  // Esperar 300 ms después de escribir para filtrar.
+  // Esperar 300 ms después de escribir
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedSearch(search);
+      setDebouncedSearch(search.trim());
+      setPage(1);
     }, 300);
 
     return () => clearTimeout(timer);
   }, [search]);
 
-  const filteredProducts = products.filter((product) => {
-    const searchText = debouncedSearch.toLowerCase().trim();
+  // Consultar productos paginados
+  useEffect(() => {
+    let cancelled = false;
 
-    if (!searchText) return false;
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        setError("");
 
-    const matchesName = product.name?.toLowerCase().includes(searchText);
-    const matchesSku = product.sku?.toLowerCase().includes(searchText);
+        const response = await getProducts({
+          page,
+          limit: PAGE_SIZE,
+          search: debouncedSearch,
+          order
+        });
 
-    return product.active && (matchesName || matchesSku);
-  });
+        if (cancelled) return;
+
+        setProducts(
+          (response.productos || []).filter(
+            (product) =>
+              product.active &&
+              Number(product.availableStock) > 0
+          )
+        );
+
+        setPagination(response.paginacion);
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || "No se pudieron cargar los productos.");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [page, debouncedSearch, order, refreshKey]);
 
   const getCartQuantity = (productId) => {
     const item = cartItems.find(
@@ -62,17 +91,32 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
     return item?.quantity || 0;
   };
 
+  const handleChangeOrder = (newOrder) => {
+    setOrder(newOrder);
+    setPage(1);
+  };
+
+  const handleChangeSearch = (value) => {
+    setSearch(value);
+  };
+
   const handleAddProduct = (product) => {
     onAddProduct(product);
   };
+
+  const formatCurrency = (amount) =>
+    new Intl.NumberFormat("es-PE", {
+      style: "currency",
+      currency: "PEN"
+    }).format(Number(amount));
 
   return (
     <section className="product-search-section">
       <div className="product-search-header">
         <div>
-          <h2>Buscar productos</h2>
+          <h2>Productos disponibles</h2>
           <p>
-            Busca por nombre o código SKU para agregar productos a la venta.
+            Selecciona productos o busca por nombre y código SKU.
           </p>
         </div>
       </div>
@@ -84,7 +128,7 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
           type="text"
           placeholder="Escribe el nombre o código del producto..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleChangeSearch(e.target.value)}
         />
 
         {search && (
@@ -98,6 +142,18 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
         )}
       </div>
 
+      <div className="product-search-toolbar">
+        <span>Ordenar por nombre:</span>
+
+        <select
+          value={order}
+          onChange={(e) => handleChangeOrder(e.target.value)}
+        >
+          <option value="asc">A - Z</option>
+          <option value="desc">Z - A</option>
+        </select>
+      </div>
+
       <div className="product-search-results">
         {loading ? (
           <div className="product-search-message">
@@ -106,19 +162,18 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
           </div>
         ) : error ? (
           <div className="product-search-error">{error}</div>
-        ) : !debouncedSearch.trim() ? (
+        ) : products.length === 0 ? (
           <div className="product-search-message">
             <Package size={25} />
-            <span>Escribe para buscar productos disponibles.</span>
-          </div>
-        ) : filteredProducts.length === 0 ? (
-          <div className="product-search-message">
-            <Package size={25} />
-            <span>No se encontraron productos.</span>
+            <span>
+              {debouncedSearch
+                ? "No se encontraron productos disponibles."
+                : "No hay productos con existencias disponibles."}
+            </span>
           </div>
         ) : (
-          filteredProducts.map((product) => {
-            const stock = Number(product.availableStock ?? 0)
+          products.map((product) => {
+            const stock = Number(product.availableStock ?? 0);
             const cartQuantity = getCartQuantity(product.id);
             const availableStock = Math.max(0, stock - cartQuantity);
             const outOfStock = availableStock <= 0;
@@ -128,12 +183,8 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
                 <div className="product-search-info">
                   <strong>{product.name}</strong>
                   <span>SKU: {product.sku}</span>
-                  <span>
-                    Precio: S/ {Number(product.salePrice).toFixed(2)}
-                  </span>
-                  <span>
-                    Stock: {stock} unidades
-                  </span>
+                  <span>Precio: {formatCurrency(product.salePrice)}</span>
+                  <span>Stock: {stock} unidades</span>
                 </div>
 
                 <div className="product-search-actions">
@@ -169,6 +220,42 @@ const ProductSearch = ({ onAddProduct, cartItems = [] }) => {
           })
         )}
       </div>
+
+      {!loading && !error && pagination.total > 0 && (
+        <div className="product-search-pagination">
+          <span>
+            Mostrando {products.length} de {pagination.total} productos
+          </span>
+
+          <div className="product-pagination-controls">
+            <button
+              type="button"
+              onClick={() => setPage((current) => Math.max(1, current - 1))}
+              disabled={page <= 1}
+              title="Página anterior"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            <span>
+              Página {page} de {pagination.totalPaginas}
+            </span>
+
+            <button
+              type="button"
+              onClick={() =>
+                setPage((current) =>
+                  Math.min(pagination.totalPaginas, current + 1)
+                )
+              }
+              disabled={page >= pagination.totalPaginas}
+              title="Página siguiente"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,10 +1,26 @@
 
 import { apiRequest } from "./api";
 
-// Obtener todos los productos
-export const getProducts = () => {
-  return apiRequest("/products");
+// Obtener productos con filtros y paginación opcional
+export const getProducts = ({
+  page,
+  limit,
+  search = "",
+  order = "asc"
+} = {}) => {
+  const params = new URLSearchParams();
+
+  if (page !== undefined) params.append("page", page);
+  if (limit !== undefined) params.append("limit", limit);
+  if (search.trim()) params.append("search", search.trim());
+
+  params.append("order", order);
+
+  const query = params.toString();
+
+  return apiRequest(`/products?${query}`);
 };
+
 
 // Obtener un producto por su ID
 export const getProductById = (id) => {

@@ -12,7 +12,7 @@ import "./Sales.css";
 const Sales = () => {
   const { cartItems, setCartItems, clearCart } = useSales();
   const [saving, setSaving] = useState(false);
-
+  const [refreshKey, setRefreshKey] = useState(0);
   const { showToast } = useToast();
 
   // Agregar un producto al carrito.
@@ -90,7 +90,7 @@ const Sales = () => {
       };
 
       await createSale(saleData);
-
+      setRefreshKey((current) => current + 1);
       clearCart();
 
       showToast("Venta registrada correctamente.", "success");
@@ -110,6 +110,7 @@ const Sales = () => {
         <ProductSearch
           onAddProduct={handleAddProduct}
           cartItems={cartItems}
+          refreshKey={refreshKey}
         />
 
         <SalesCart

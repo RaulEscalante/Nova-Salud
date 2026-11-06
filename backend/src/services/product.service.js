@@ -1,24 +1,56 @@
 
 import * as ProductModel from "../models/product.model.js";
 
-// Listar productos con stock disponible para venta
-export const getAllProducts = async () => {
-  const products = await ProductModel.findAll();
 
-  // Fecha actual a medianoche UTC
+export const getAllProducts = async ({
+  page,
+  limit,
+  search = "",
+  order = "asc"
+} = {}) => {
+  // Validar paginación
+  const paginated = page !== undefined || limit !== undefined;
+
+  if (paginated) {
+    page = Number(page ?? 1);
+    limit = Number(limit ?? 10);
+
+    if (!Number.isInteger(page) || page < 1) {
+      throw new Error("El número de página no es válido");
+    }
+
+    if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
+      throw new Error("La cantidad de productos por página no es válida");
+    }
+  }
+
+  // Validar orden
+  if (!["asc", "desc"].includes(order)) {
+    throw new Error("El orden de los productos no es válido");
+  }
+
+  const normalizedSearch = String(search).trim();
+
+  // Consultar productos
+  const products = await ProductModel.findAll({
+    page: paginated ? page : undefined,
+    limit: paginated ? limit : undefined,
+    search: normalizedSearch,
+    order
+  });
+
+  // Calcular stock disponible excluyendo lotes vencidos
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  return products.map((product) => {
+  const productsWithStock = products.map((product) => {
     const availableStock = product.batches.reduce(
       (total, batch) => {
         const expirationDate = new Date(batch.expirationDate);
 
-        if (expirationDate >= today) {
-          return total + batch.quantity;
-        }
-
-        return total;
+        return expirationDate >= today
+          ? total + batch.quantity
+          : total;
       },
       0
     );
@@ -30,8 +62,25 @@ export const getAllProducts = async () => {
       availableStock
     };
   });
-};
 
+  // Mantener compatibilidad con las consultas sin paginación
+  if (!paginated) {
+    return productsWithStock;
+  }
+
+  // Obtener cantidad total de coincidencias
+  const total = await ProductModel.countAll(normalizedSearch);
+
+  return {
+    productos: productsWithStock,
+    paginacion: {
+      pagina: page,
+      limite: limit,
+      total,
+      totalPaginas: Math.ceil(total / limit)
+    }
+  };
+};
 
 // Obtener producto por ID
 export const getProductById = async (id) => {

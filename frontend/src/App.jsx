@@ -12,6 +12,7 @@ import Purchases from "./pages/Purchases/Purchases";
 import Batches from "./pages/Batches/Batches";
 import Alerts from "./pages/Alerts/Alerts";
 import Sales from "./pages/Sales/Sales";
+import SalesHistory from "./pages/Sales/components/SalesHistory";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/lotes" element={<Batches />} />
             <Route path="/alertas" element={<Alerts />} />
             <Route path="/ventas" element={<Sales />} />
+            <Route path="/ventas/historial" element={<SalesHistory />} />
             <Route path="/compras" element={<Purchases />} />
           </Route>
         </Routes>

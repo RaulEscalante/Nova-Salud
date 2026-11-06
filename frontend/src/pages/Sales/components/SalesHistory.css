@@ -39,6 +39,106 @@
     font-size: 13px;
 }
 
+/* Buscador y filtros */
+
+.sales-history-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sales-history-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 220px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: #94a3b8;
+    background: #ffffff;
+    transition: border-color 0.2s;
+}
+
+.sales-history-search:focus-within {
+    border-color: #3b82f6;
+}
+
+.sales-history-search input {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #334155;
+    font-size: 12px;
+}
+
+.sales-history-search input::placeholder {
+    color: #94a3b8;
+}
+
+.sales-history-date-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    min-height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #64748b;
+}
+
+.sales-history-date-filter svg {
+    flex-shrink: 0;
+    color: #94a3b8;
+}
+
+.sales-history-date-filter label {
+    color: #64748b;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.sales-history-date-filter input {
+    width: 125px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #334155;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.sales-history-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0 11px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sales-history-clear:hover {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* Botón de detalle */
+
 .sale-detail-button {
     display: inline-flex;
     align-items: center;
@@ -58,6 +158,8 @@
 .sale-detail-button:hover {
     background: #dbeafe;
 }
+
+/* Estados */
 
 .sales-history-state {
     display: flex;
@@ -86,6 +188,22 @@
     }
 }
 
+/* Adaptación móvil */
+
+@media (max-width: 900px) {
+    .sales-history-filters {
+        align-items: stretch;
+    }
+
+    .sales-history-search {
+        flex-basis: 100%;
+    }
+
+    .sales-history-date-filter {
+        flex: 1;
+    }
+}
+
 @media (max-width: 640px) {
     .sales-history {
         padding: 16px;
@@ -94,5 +212,24 @@
     .sales-history-header {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .sales-history-filters {
+        flex-direction: column;
+    }
+
+    .sales-history-search,
+    .sales-history-date-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sales-history-date-filter input {
+        flex: 1;
+        width: auto;
+    }
+
+    .sales-history-clear {
+        align-self: flex-start;
     }
 }

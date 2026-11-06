@@ -4,11 +4,27 @@ import * as ProductService from "../services/product.service.js";
 // Listar productos
 export const getAll = async (req, res, next) => {
     try {
-        const products = await ProductService.getAllProducts();
+        const { page, limit, search, order } = req.query;
 
+        const result = await ProductService.getAllProducts({
+            page,
+            limit,
+            search,
+            order
+        });
+
+        // Respuesta para consultas paginadas
+        if (result.productos) {
+            return res.status(200).json({
+                mensaje: "Productos obtenidos correctamente",
+                ...result
+            });
+        }
+
+        // Respuesta para consultas sin paginación
         res.status(200).json({
             mensaje: "Productos obtenidos correctamente",
-            productos: products
+            productos: result
         });
     } catch (error) {
         next(error);
